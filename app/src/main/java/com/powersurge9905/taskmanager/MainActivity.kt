@@ -15,7 +15,9 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Checkbox
+import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Surface
@@ -71,14 +73,24 @@ fun TaskInputField(
         TextField(
             value = taskName,
             onValueChange = onValueChange,
-            label = { Text("Enter task") },
+            label = { Text(
+                text = "Enter task",
+                fontSize = 20.sp
+            ) },
             singleLine = true,
             modifier = Modifier.weight(1f).padding(end = 16.dp)
         )
         Button(
-            onClick = onTaskAdd
+            onClick = onTaskAdd,
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color(0xFF2255FF),
+                contentColor = Color.White
+            )
         ) {
-            Text("Add Task")
+            Text(
+                text = "Add Task",
+                fontSize = 16.sp
+            )
         }
     }
 }
@@ -128,15 +140,21 @@ fun TaskItem(
             checked = complete,
             onCheckedChange = {
                 isChecked -> onCompletionChange(isChecked)
-            }
+            },
+            colors = CheckboxDefaults.colors(
+                checkedColor = Color(0xFF2255FF),
+                uncheckedColor = Color.Gray,
+                checkmarkColor = Color.White
+            )
         )
         Text(
             modifier = Modifier
                 .weight(1f)
                 .padding(start = 16.dp),
             text = taskName,
+            fontSize = 20.sp,
             textDecoration = if (complete) TextDecoration.LineThrough else null,
-            color = if (complete) Color.Gray else Color.Unspecified
+            color = if (complete) Color(0xFF2255FF) else Color.Unspecified
         )
         IconButton(onClick = onClose) {
             Icon(Icons.Filled.Delete, contentDescription = "Close")
